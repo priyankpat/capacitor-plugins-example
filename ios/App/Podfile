@@ -10,11 +10,16 @@ def capacitor_pods
   # Automatic Capacitor Pod dependencies, do not delete
   pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
-  pod 'CapacitorCommunityFlipper', :path => '../../node_modules/@capacitor-community/flipper'
+  
   # Do not delete
 end
 
 target 'App' do
   capacitor_pods
   # Add your Pods here
+
+  pre_install do |installer|
+    # workaround for CocoaPods/CocoaPods#3289
+    Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
+  end
 end
