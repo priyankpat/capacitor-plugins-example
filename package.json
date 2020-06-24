@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@capacitor-community/firebase-remote-config": "file:../firebase-remote-config",
     "@capacitor/android": "^2.2.0",
     "@capacitor/core": "2.2.0",
     "@capacitor/ios": "^2.2.0",
