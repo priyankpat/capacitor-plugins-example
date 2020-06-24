@@ -2,6 +2,9 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+
+import { Plugins, DeviceInfo } from '@capacitor/core';
+
 import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
@@ -22,6 +25,29 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
+const { FirebaseCrashlytic, Device } = Plugins;
+
+FirebaseCrashlytic.setContext({
+  key: 'theme',
+  value: 'dark',
+  type: 'string',
+});
+
+FirebaseCrashlytic.addLogMessage({
+  message: 'This is a message.',
+});
+
+FirebaseCrashlytic.setUserId({
+  userId: "507f191e810c19729de860ea",
+});
+
+Device.getInfo()
+.then((info: DeviceInfo) => {
+  if (info && info.platform && info.platform === 'android') {
+    FirebaseCrashlytic.crash();
+  }
+});
 
 const App: React.FC = () => (
   <IonApp>
