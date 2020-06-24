@@ -2,6 +2,8 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { Plugins } from '@capacitor/core';
+
 import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
@@ -22,6 +24,21 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
+const { FirebaseAnalytics } = Plugins;
+
+FirebaseAnalytics.setUserId({
+  userId: 'john_doe_123',
+});
+
+FirebaseAnalytics.setUserProperty({
+  name: 'favorite_food',
+  value: 'pizza',
+});
+
+FirebaseAnalytics.logEvent({
+  name: 'select_content',
+});
 
 const App: React.FC = () => (
   <IonApp>
