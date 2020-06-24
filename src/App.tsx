@@ -2,6 +2,8 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { Plugins } from '@capacitor/core';
+
 import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
@@ -22,6 +24,16 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
+const { Flipper } = Plugins;
+
+Flipper.initialize({
+  enabled: true,
+  network: true,
+  crash_report: true,
+  layout_inspector: true,
+  database: true,
+});
 
 const App: React.FC = () => (
   <IonApp>
