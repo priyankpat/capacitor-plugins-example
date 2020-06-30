@@ -26,26 +26,28 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const { FirebaseCrashlytic, Device } = Plugins;
+const { FirebaseCrashlytics, Device } = Plugins;
 
-FirebaseCrashlytic.setContext({
+FirebaseCrashlytics.setContext({
   key: 'theme',
   value: 'dark',
   type: 'string',
 });
 
-FirebaseCrashlytic.addLogMessage({
+FirebaseCrashlytics.addLogMessage({
   message: 'This is a message.',
 });
 
-FirebaseCrashlytic.setUserId({
+FirebaseCrashlytics.setUserId({
   userId: "507f191e810c19729de860ea",
 });
 
 Device.getInfo()
 .then((info: DeviceInfo) => {
   if (info && info.platform && info.platform === 'android') {
-    FirebaseCrashlytic.crash();
+    FirebaseCrashlytics.crash({
+      message: 'This is a crash message',
+    });
   }
 });
 
