@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { Plugins } from '@capacitor/core';
 import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
@@ -23,15 +24,57 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/home" component={Home} exact={true} />
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const { NativeAudio } = Plugins;
+
+const App: React.FC = () => {
+  useEffect(() => {
+    NativeAudio.preloadSimple({
+      assetPath: "test",
+      assetId: "chime_audio",
+      volume: 0.1,
+    }).then(() => {
+      NativeAudio.play({
+        assetId: "chime_audio",
+      });
+
+      setTimeout(() => {
+        NativeAudio.setVolume({
+          assetId: "chime_audio",
+          volume: 0.1,
+        });
+      }, 2000);
+
+      setTimeout(() => {
+        NativeAudio.pause({
+          assetId: "chime_audio",
+        });
+      }, 5000);
+
+      setTimeout(() => {
+        NativeAudio.resume({
+          assetId: "chime_audio",
+        });
+      }, 7000);
+
+      setTimeout(() => {
+        NativeAudio.stop({
+          assetId: "chime_audio",
+        });
+      }, 9000);
+    })
+    .catch((err: any) => alert(JSON.stringify(err)));
+  });
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route path="/home" component={Home} exact={true} />
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
