@@ -2,7 +2,6 @@
   "name": "CapacitorPluginsExample",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://github.com/capacitor-community/firebase-analytics",
   "dependencies": {
     "@capacitor-community/firebase-analytics": "file:../firebase-analytics",
     "@capacitor/android": "^2.2.0",
