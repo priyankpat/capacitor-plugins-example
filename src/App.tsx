@@ -34,7 +34,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const init = async () => {
       var deviceInfo = Device.getInfo();
-      
+
       if ((await deviceInfo).platform === 'web') {
         FirebaseAnalytics.initializeFirebase({
           apiKey: "AIzaSyDTM6WF5rt31iFFKZByi0AWc9Y7VJel9Dc",
@@ -67,9 +67,13 @@ const App: React.FC = () => {
 
   const getAppInstanceId = async () => {
     const response = await FirebaseAnalytics.getAppInstanceId();
-    
+
     const { instanceId } = response;
     alert('Instance ID: ' + instanceId);
+  };
+
+  const setScreenName = async () => {
+    await FirebaseAnalytics.setScreenName({ screenName: 'test' });
   };
 
   const logEvent = async () => {
@@ -90,6 +94,7 @@ const App: React.FC = () => {
         <button onClick={setUserProperty} style={button}>Set User Property</button>
         <button onClick={getAppInstanceId} style={button}>Get App Instance Id</button>
         <button onClick={logEvent} style={button}>Log Event</button>
+        <button onClick={setScreenName} style={button}>Set Screen</button>
       </>
       {/* <IonReactRouter>
         <IonRouterOutlet>
